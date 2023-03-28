@@ -1,3 +1,6 @@
+# This code is demonstration of many useful codes
+# to use with torch tensor 
+
 import torch
 import numpy as np
 
