@@ -42,6 +42,7 @@ print(b.type(), b.dtype)
 
 # check size
 print(b.size())  # torch.Size([2])
+print(b.shape)   # torch.Size([2])
 
 # check dimension
 print(b.ndimension()) # 1
