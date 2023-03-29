@@ -100,6 +100,13 @@ print(tensorA[0].item(), type(tensorA[0].item()))  # 1 และเป็น <cl
 tensorA[0] = 100
 print(tensorA) # tensor([100, 2])
 
+# Changing values of multiple indexes
+
+practice_tensor = torch.tensor([2, 7, 3, 4, 6, 2, 3, 1, 2])
+# just input as a list in the []
+practice_tensor[[3,4,7]] = 0
+print(practice_tensor)  # tensor([2, 7, 3, 0, 0, 2, 3, 0, 2])
+
 # sliding the same as list
 print(tensorS) 
 print(tensorS[2:4]) # ตัดมาแค่ 2 กับ 3
@@ -158,3 +165,27 @@ y = torch.sin(x)
 
 plt.plot(x.numpy(), y.numpy())
 plt.show()
+
+
+# _____________________________________
+
+# section 8 : clarification between size(5) and size(5, 1)
+# the 1st one is 1d, so there is no concept of row and column
+# but the second one is 2d, so there is 5 rows and 1 column
+
+# Practice: convert the following tensor to a tensor object with 1 row and 5 columns
+
+your_tensor = torch.tensor([1, 2, 3, 4, 5])
+
+your_new_tensor = your_tensor.view(1, 5)
+print("Original Size: ", your_tensor, your_tensor.size())
+print("Size after view method", your_new_tensor)  # tensor([[1, 2, 3, 4, 5]])
+print(your_new_tensor.ndimension(), your_new_tensor.size())  # 2  torch.Size([1, 5])
+
+your_tensor2 = your_tensor.view(5, 1)  
+print(your_tensor2, your_tensor2.size())  
+# tensor([[1],
+#         [2],
+#         [3],
+#         [4],
+#         [5]])
