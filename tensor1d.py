@@ -126,7 +126,7 @@ print(tensorS)  # tensor([ 1,  2,  3, 30, 40,  6])
 tensorP = tensorS + 1  # torch will automatically cast 1 onto every element of tensor
 print(tensorP)   # tensor([ 2,  3,  4, 31, 41,  7])
 
-# Hadamand product
+# Hadamand (element-wise) product 
 tensorA = torch.tensor([1,2])
 tensorB = torch.tensor([3,4])
 print(tensorA * tensorB)
