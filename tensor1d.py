@@ -4,6 +4,7 @@
 import torch
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 
 # section 1 : initialization and type
 
@@ -149,3 +150,11 @@ print(torch.sin(tensorA))  # tensor([0.8415, 0.9093])
 # creating linespace
 tensorL = torch.linspace(-2, 2, steps=5)  # steps = จะเอาทั้งหมดกี่ตัว
 print(tensorL)  # tensor([-2., -1.,  0.,  1.,  2.])
+
+
+# ploting a sine graph using torch and matplotlib
+x = torch.linspace(0, 2*np.pi, 100)
+y = torch.sin(x)
+
+plt.plot(x.numpy(), y.numpy())
+plt.show()
