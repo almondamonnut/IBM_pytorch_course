@@ -47,3 +47,8 @@ print(tensorD)
 # tensor([[1, 4],
 #         [2, 5],
 #         [3, 6]])
+
+
+# auto build tensor with torch.ones(row, column)
+x = torch.ones(10, 2)
+print(x, x.ndimension(), x.shape)
