@@ -59,4 +59,53 @@ class normalizee():
     
 normalizekung = normalizee()
 print(normalizekung(data1[:]))
+
+
+class multiplyy():
+
+    def __init__(self, mfactor):
+        self.mfactor = mfactor
+    
+    # ใน __call__ ควรจะรับแค่ sample อย่างเดียว 
+    # factor อื่นต้องอยู่ที่ __init__ ให้หมด
+    # เพื่อให้ตอนเรียกใช้ผ่าน Compose ผ่าน Dataset subclass 
+    # จะใส่แค่ sample เท่านั้น มาตรฐานเดียวกันทุก transform function
+    def __call__(self, samplee):    
+        x, y = samplee
+        x *= self.mfactor
+        y *= self.mfactor
+        return x, y
+
+multy = multiplyy(20)
+print(multy(data1[:]))
+# (tensor([[40., 40.],
+#         [40., 40.],
+#         [40., 40.],
+#         [40., 40.],
+#         [40., 40.]]), tensor([[20.],
+#         [20.],
+#         [20.],
+#         [20.],
+#         [20.]]))
         
+
+#___________________________________________
+
+
+# 3. Compose many transfoms together
+
+from torchvision import transforms
+
+# make a callable instance of class transforms.Compose 
+# by passing a list of instances of transform classes
+data_transform = transforms.Compose([normalizee(), multiplyy(20)])
+
+# apply without specifying transform in Dataset subclass
+x_, y_ = data_transform(data1[:])
+print(x_, y_)
+
+# instantiate Dataset subclass with transform specified
+dataset_tr = datakung(transform = data_transform)
+print(dataset_tr)
+print(dataset_tr[0])
+# (tensor([nan, nan]), tensor([nan]))
