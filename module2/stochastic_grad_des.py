@@ -16,21 +16,25 @@ X = torch.arange(-3, 3, 0.1).view(-1, 1)
 f = -3*X
 Y = f + torch.randn(f.size()) * 0.1
 
-lr = 0.1
+lr = 0.01
 
 # training loop
-for epoch in range(4):
+for epoch in range(5):
     for x,y in zip(X,Y):
         # clear the previous plot
         plt.cla()
 
         yhat = forward(x)
         ax.plot(X, Y.data, 'b.')
-        ax.plot(X, (w*X+b).data, 'r')
+        # print(forward(X).shape)
+        ax.plot(X, forward(X).data, 'r')
+                
+        ax.set_xlim([-3.5, 3.5]) 
+        ax.set_ylim([-10, 10])
         
         # reload
         plt.draw()
-        plt.pause(0.1)
+        plt.pause(0.05)
 
         loss = losskung(yhat, y)
         loss.backward()
