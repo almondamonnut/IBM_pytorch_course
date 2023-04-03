@@ -3,6 +3,7 @@ from torch.utils.data import Dataset, DataLoader
 import torch.nn as nn
 from torch import optim
 import matplotlib.pyplot as plt
+import numpy as np
 
 fig, ax = plt.subplots()
 
@@ -42,8 +43,11 @@ losskung = nn.MSELoss()
 trainloader = DataLoader(dataset=train_data, batch_size=1)
 
 epochs = 10
+# epochs = 1
 learning_rates = [0.0001, 0.001, 0.01, 0.1, 1]
-# learning_rates = [1]
+learning_rates = [0.0001, 0.001, 0.01, 0.1]
+
+# learning_rates = [0.01, 0.1]
 val_error = torch.zeros(len(learning_rates))
 train_error = torch.zeros(len(learning_rates))
 MODELS = []
@@ -63,14 +67,14 @@ for i, lr in enumerate(learning_rates):
 
             # วาด animation
             plt.draw()
-            plt.pause(0.2)
+            plt.pause(0.000001)
 
             yhat = model(x)
             loss = losskung(yhat, y)
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-            print(loss)
+            # print(loss)
     
     yhat = model(train_data.x)
     loss = losskung(yhat, train_data.y)
@@ -88,3 +92,13 @@ print("val_error:",val_error)
 plt.show()
 
 # conclusion: too high learning rate results in explosion
+print(np.array(learning_rates))
+print(train_error.numpy())
+# plt.cla()
+# ax.plot(np.array(learning_rates), train_error.detach().numpy(),'b.')
+# ax.plot(np.array(learning_rates), val_error.detach().numpy(), 'r.')
+plt.semilogx(learning_rates, train_error.numpy(), 'r')
+plt.semilogx(learning_rates, val_error.numpy(), 'b')
+plt.xticks(np.array(learning_rates))
+
+plt.show()
