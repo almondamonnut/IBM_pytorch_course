@@ -58,16 +58,16 @@ for i, lr in enumerate(learning_rates):
 
     for epoch in range(epochs):
         for x, y in trainloader:
-            # remove the previous line
-            plt.cla()
-            # plot train data
-            ax.plot(train_data.x, train_data.y.data, 'b.')
-            # plot prediction
-            ax.plot(train_data.x, model(train_data.x).data, 'r')
+            # # remove the previous line
+            # plt.cla()
+            # # plot train data
+            # ax.plot(train_data.x, train_data.y.data, 'b.')
+            # # plot prediction
+            # ax.plot(train_data.x, model(train_data.x).data, 'r')
 
-            # วาด animation
-            plt.draw()
-            plt.pause(0.000001)
+            # # วาด animation
+            # plt.draw()
+            # plt.pause(0.000001)
 
             yhat = model(x)
             loss = losskung(yhat, y)
@@ -89,16 +89,21 @@ print("learning rates:", learning_rates)
 print("train_error:", train_error)
 print("val_error:",val_error)
 
-plt.show()
+# plt.show()
 
-# conclusion: too high learning rate results in explosion
-print(np.array(learning_rates))
-print(train_error.numpy())
-# plt.cla()
-# ax.plot(np.array(learning_rates), train_error.detach().numpy(),'b.')
-# ax.plot(np.array(learning_rates), val_error.detach().numpy(), 'r.')
+#too high learning rate results in explosion
+
+# visualize LR vs ERRORS
 plt.semilogx(learning_rates, train_error.numpy(), 'r')
 plt.semilogx(learning_rates, val_error.numpy(), 'b')
 plt.xticks(np.array(learning_rates))
-
 plt.show()
+
+# visualize all prediction lines
+plt.plot()
+
+# select the best model
+val_error = list(val_error)
+print(val_error.index(min(val_error)))
+model = MODELS[val_error.index(min(val_error))]
+
